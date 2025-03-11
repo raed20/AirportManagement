@@ -111,15 +111,15 @@ namespace AM.ApplicationCore.services
             //return req;
             return Flights.OrderByDescending(f => f.EstimatedDuration);
         }
-        public IEnumerable<Passenger> SeniorTravellers(Flight flight)
+        /*public IEnumerable<Passenger> SeniorTravellers(Flight flight)
         {
-            var req = from t in flight.Passengers
+            var req = from t in flight.Tickets
                        .OfType<Traveller>()
                       orderby t.BirthDate
                       select t;
             return req.Take(3);
 
-        }
+        }*/
 
         public IEnumerable<IGrouping<string,Flight>> DestinationGroupedFlights()
         {
@@ -131,6 +131,12 @@ namespace AM.ApplicationCore.services
             }
             return req;
         }
+
+        public IEnumerable<Passenger> SeniorTravellers(Flight flight)
+        {
+            throw new NotImplementedException();
+        }
+
         public FlightMethods()
         {
             FlighDetailDel = pl =>

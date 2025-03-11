@@ -17,6 +17,7 @@ namespace AM.Infrastructure
         public DbSet<Passenger> Passengers { get; set; }
         public DbSet<Staff> Staffs { get; set; }
         public DbSet<Traveller> Travellerss { get; set; }
+        public DbSet<Ticket>Tickets { get; set; }
         
 
         //OnConfiguring
@@ -27,6 +28,8 @@ namespace AM.Infrastructure
                                          Initial Catalog=AirportManagementDB;
                                          Integrated Security=true;
                                          MultipleActiveResultSets= True");
+            //to unblock jointure
+            optionsBuilder.UseLazyLoadingProxies(); 
             base.OnConfiguring(optionsBuilder);
         }
         //OnModelCreating (FluentAPI)
@@ -43,9 +46,22 @@ namespace AM.Infrastructure
             modelBuilder.Entity<Passenger>().OwnsOne(p => p.FullName);
 
             modelBuilder.ApplyConfiguration(new PassengerConfiguration());
+            //tph , heritage automatique effectué par l orm
+            //modelBuilder.Entity<Passenger>()
+            //    .HasDiscriminator<int>("IsTraveller")
+            //    .HasValue<Passenger>(2)
+            //    .HasValue<Traveller>(1)
+            //    .HasValue<Staff>(0);
 
+            //configuer l'heritage table per type TPT
+            modelBuilder.Entity<Staff>().ToTable("Staffs");
+            modelBuilder.Entity<Traveller>().ToTable("Travellers");
+            //configurer la clé primaire  de la porteuse de données
+            modelBuilder.Entity<Ticket>()
+                .HasKey(t => new { t.FlightFk, t.PassengerFk });
 
             base.OnModelCreating(modelBuilder);
+
 
           
         }

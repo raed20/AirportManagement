@@ -16,9 +16,10 @@ namespace AM.ApplicationCore.domain
         public int EstimatedDuration { get; set; }
 
         [ForeignKey("PlaneFK")]
-        public Plane plane { get; set; }
+        public virtual Plane plane { get; set; }
         public int PlaneFK { get; set; }
-        public ICollection<Passenger> Passengers { get; set; }
+ //       public ICollection<Passenger> Passengers { get; set; }
+        public virtual ICollection<Ticket> tickets { get; set; }
 
         public override string ToString()
         {

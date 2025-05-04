@@ -20,6 +20,8 @@ namespace AM.ApplicationCore.domain
         public int PlaneFK { get; set; }
  //       public ICollection<Passenger> Passengers { get; set; }
         public virtual ICollection<Ticket> tickets { get; set; }
+        public string Pilot { get; set; }
+
 
         public override string ToString()
         {

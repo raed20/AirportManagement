@@ -48,6 +48,9 @@ namespace AM.Infrastructure
             GC.SuppressFinalize(this);
         }
 
-
+        public object GetRepository<T>()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

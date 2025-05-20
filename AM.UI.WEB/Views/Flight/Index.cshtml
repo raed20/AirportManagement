@@ -6,6 +6,14 @@
 }
 
 <h1>Index</h1>
+<form asp-action="index">
+    <fieldset>
+        <legend> Recherche</legend>
+        Saisir une date de départ :
+        <input type="date" name="dateDepart" />
+        <input type="submit" value="Search" />
+    </fieldset>
+</form>
 <form asp-action="Sort">
 	<fieldset>
 		<input type="submit" value="Sort" />
@@ -79,6 +87,7 @@
 	            <img src="~/uploads/@item.Pilot" width="50" height="50">
             </td>
             <td>
+                @Html.ActionLink("Plane", "Details", "Plane", new{id =item.plane.PlaneId})
 	            @Html.ActionLink("Edit", "Edit", new { id=item.FlightId }) |
 	            @Html.ActionLink("Details", "Details", new {  id=item.FlightId  }) |
                     @Html.ActionLink("Delete", "Delete", new { id = item.FlightId })

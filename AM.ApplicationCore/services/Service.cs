@@ -58,5 +58,11 @@ namespace AM.ApplicationCore.Services
             }
 
         }
+
+        public IEnumerable<T> GetAll()
+        {
+            return repository.GetAll();
+        }
+
     }
 }

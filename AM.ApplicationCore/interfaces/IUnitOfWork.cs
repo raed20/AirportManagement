@@ -10,5 +10,6 @@ namespace AM.ApplicationCore.interfaces
     {
         int Save();
         IGenericRepository<TEntity> Repository<TEntity>() where TEntity : class;
+        object GetRepository<T>();
     }
 }

@@ -9,9 +9,8 @@ namespace AM.ApplicationCore.interfaces
 {
     public interface IServiceFlight : IService<Flight>
     {
-        public IEnumerable<Flight> SortFlights()
-        {
-            return GetMany().OrderByDescending(f => f.FlightDate);
-        }
+
+        public IEnumerable<Flight> SortFlights();
+       
     }
 }

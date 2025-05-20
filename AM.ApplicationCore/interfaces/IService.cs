@@ -17,6 +17,8 @@ namespace AM.ApplicationCore.interfaces
         IEnumerable<T> GetMany(Expression<Func<T, bool>> where = null);
         T Get(Expression<Func<T, bool>> where);
         void Commit();
+        IEnumerable<T> GetAll();
+
 
     }
 }

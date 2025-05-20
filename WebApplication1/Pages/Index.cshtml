@@ -1,0 +1,106 @@
+﻿@model IEnumerable<AM.ApplicationCore.domain.Flight>
+
+@{
+    ViewData["Title"] = "Liste des Vols";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Gestion des Vols</h1>
+
+<div class="d-flex justify-content-between mb-4">
+    <a asp-action="Create">
+        <i class="fas fa-plus-circle me-2"></i> Créer un nouveau vol
+    </a>
+
+    @* barre de recherche *@
+    <form asp-action="index">
+        <fieldset>
+            <legend> Recherche</legend>
+            Saisir une date de départ :
+            <input type="date" name="dateDepart" />
+            <input type="submit" value="Serach" />
+        </fieldset>
+    </form>
+
+
+    <form asp-action="Sort" method="post">
+        <button type="submit" class="btn btn-primary">
+            <i class="fas fa-sort-amount-down-alt"></i> Trier par date (récent → ancien)
+        </button>
+    </form>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.FlightId)</th>
+            <th>@Html.DisplayNameFor(model => model.PlaneFK)</th>
+            <th>@Html.DisplayNameFor(model => model.Destination)</th>
+            <th>@Html.DisplayNameFor(model => model.Departure)</th>
+            <th>@Html.DisplayNameFor(model => model.FlightDate)</th>
+            <th>@Html.DisplayNameFor(model => model.EffectiveArrival)</th>
+            <th>@Html.DisplayNameFor(model => model.EstimatedDuration)</th>
+            <th>@Html.DisplayNameFor(model => model.Airline)</th>
+            <th>@Html.DisplayNameFor(model => model.Pilot)</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.FlightId)</td>
+                <td>@Html.DisplayFor(modelItem => item.PlaneFK)</td>
+                <td>@Html.DisplayFor(modelItem => item.Destination)</td>
+                <td>@Html.DisplayFor(modelItem => item.Departure)</td>
+                <td>@item.FlightDate.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@item.EffectiveArrival.ToString("dd/MM/yyyy HH:mm")</td>
+                <td>@Html.DisplayFor(modelItem => item.EstimatedDuration) min</td>
+                <td>@Html.DisplayFor(modelItem => item.Airline)</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.Pilot))
+                    {
+                        <img src="~/uploads/@item.Pilot" width="50" height="50"
+                             class="img-thumbnail rounded-circle"
+                             alt="Photo du pilote @item.Airline"
+                             title="Pilote @item.Airline" />
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">Aucune image</span>
+                    }
+                </td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a asp-action="Edit" asp-route-id="@item.FlightId"
+                           class="btn btn-sm btn-outline-warning" title="Modifier">
+                            <i class="fas fa-edit"></i>
+                        </a>
+                        <a asp-action="Details" asp-route-id="@item.FlightId"
+                           class="btn btn-sm btn-outline-info" title="Détails">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.FlightId"
+                           class="btn btn-sm btn-outline-danger" title="Supprimer">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </td>
+
+
+                @* utilisation d’une vue partielle TP-Partie8 *@
+                <td colspan="10">
+                    <partial name="_FlightDetails" model="item" />
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+}

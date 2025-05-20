@@ -20,10 +20,14 @@ namespace AM.UI.WEB.Controllers
         }
 
         // GET: FlightController
-        public ActionResult Index()
+        public ActionResult Index(DateTime? dateDepart)
         {
-            return View(_sf.GetMany());
+            if (dateDepart == null)
+                return View(_sf.GetAll().ToList());
+            else
+                return View(_sf.GetMany(f => f.FlightDate.Date.Equals(dateDepart)).ToList());
         }
+
 
         // GET: FlightController/Details/5
         public ActionResult Details(int id)
